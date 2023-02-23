@@ -34,6 +34,7 @@ public class StreamLabService {
 	private ShoppingcartItemRepository shoppingcartitems;
 
 
+
     // <><><><><><><><> R Actions (Read) <><><><><><><><><>
 
     public List<User> RDemoOne() {
@@ -46,7 +47,7 @@ public class StreamLabService {
         // Return the COUNT of all the users from the User table.
         // You MUST use a .stream(), don't listen to the squiggle here!
         // Remember yellow squiggles are warnings and can be ignored.
-    	return 0;
+    	return users.findAll().stream().count();
     }
 
     public List<Product> RDemoTwo()
@@ -59,14 +60,14 @@ public class StreamLabService {
     {
         // Write a query that gets each product whose price is less than or equal to $100.
         // Return the list
-        return null;
+        return products.findAll().stream().filter(p -> p.getPrice() <= 100).toList();
     }
 
     public List<Product> RProblemThree()
     {
         // Write a query that gets each product that CONTAINS an "s" in the products name.
         // Return the list
-    	return null;
+    	return products.findAll().stream().filter(p -> p.getName().contains("s")).toList();
     }
 
     public List<User> RProblemFour()
@@ -75,16 +76,20 @@ public class StreamLabService {
         // Return the list
         // Research 'java create specific date' and 'java compare dates'
         // You may need to use the helper classes imported above!
-    	
-        return null;
+        Calendar myDate = new GregorianCalendar(2016,Calendar.JANUARY,1);
+        Date my_obj = myDate.getTime();
+        return users.findAll().stream().filter(u -> u.getRegistrationDate().before(my_obj)).toList();
     }
 
     public List<User> RProblemFive()
     {
         // Write a query that gets all of the users who registered AFTER 2016 and BEFORE 2018
         // Return the list
-
-        return null;
+        Calendar myDate1 = new GregorianCalendar(2016, Calendar.JANUARY,1);
+        Date my_obj1 = myDate1.getTime();
+        Calendar myDate2 = new GregorianCalendar(2018,Calendar.JANUARY,1);
+        Date my_obj2 = myDate2.getTime();
+        return users.findAll().stream().filter(u -> u.getRegistrationDate().after(my_obj1) && u.getRegistrationDate().before(my_obj2)).toList();
     }
 
     // <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
@@ -100,9 +105,10 @@ public class StreamLabService {
 
     public List<Product> RProblemSix()
     {
-        // Write a query that retrieves all of the products in the shopping cart of the user who has the email "afton@gmail.com".
+//       //  Write a query that retrieves all of the products in the shopping cart of the user who has the email "afton@gmail.com".
         // Return the list
-
+//        Product customerProducts = products.findAll().stream().filter(p -> p.getShoppingcartItems().stream().findFirst().orElse(null));
+        List<Product> aftonsProducts = shoppingcartitems.findAll().stream().filter(i -> i.getUser())
     	return null;
     }
 
