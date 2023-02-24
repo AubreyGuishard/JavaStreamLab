@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -116,11 +117,13 @@ public class StreamLabService {
 
     public long RProblemSeven()
     {
+        //return the sum of the shopping cart
         // Write a query that retrieves all of the products in the shopping cart of the user who has the email "oda@gmail.com" and returns the sum of all of the products prices.
     	// Remember to break the problem down and take it one step at a time!
-
-
-    	return 0;
+        User odasEmail = users.findAll().stream().filter(user -> user.getEmail().equals("oda@gmail.com")).findFirst().orElse(null);
+        List<ShoppingcartItem> odasShoppingCart = odasEmail.getShoppingcartItems();
+        Integer odasProductsPrice = odasShoppingCart.stream().mapToInt(products -> products.getProduct().getPrice()).sum();
+        return odasProductsPrice;
 
     }
 
@@ -128,6 +131,7 @@ public class StreamLabService {
     {
         // Write a query that retrieves all of the products in the shopping cart of users who have the role of "Employee".
     	// Return the list
+        Role 
 
     	return null;
     }
