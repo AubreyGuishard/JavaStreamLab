@@ -108,8 +108,10 @@ public class StreamLabService {
 //       //  Write a query that retrieves all of the products in the shopping cart of the user who has the email "afton@gmail.com".
         // Return the list
 //        Product customerProducts = products.findAll().stream().filter(p -> p.getShoppingcartItems().stream().findFirst().orElse(null));
-        List<Product> aftonsProducts = shoppingcartitems.findAll().stream().filter(i -> i.getUser())
-    	return null;
+        User aftonsEmail = users.findAll().stream().filter(u -> u.getEmail().equals("afton@gmail.com")).findFirst().orElse(null);
+        List<ShoppingcartItem> shoppingCart = aftonsEmail.getShoppingcartItems();
+        List<Product> aftonsProducts = shoppingCart.stream().map(el -> el.getProduct()).toList();
+    	return aftonsProducts;
     }
 
     public long RProblemSeven()
