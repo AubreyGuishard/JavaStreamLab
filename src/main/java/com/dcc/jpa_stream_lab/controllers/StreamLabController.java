@@ -74,7 +74,7 @@ public class StreamLabController {
     }
     
     @GetMapping("/RProblemEight")
-    public List<Product> RProblemEight() {
+    public List <Product> RProblemEight() {
     	return service.RProblemEight();
     }
 

@@ -131,9 +131,10 @@ public class StreamLabService {
     {
         // Write a query that retrieves all of the products in the shopping cart of users who have the role of "Employee".
     	// Return the list
-        Role 
-
-    	return null;
+        Role employeeRole = roles.findAll().stream().filter(role -> role.getName().equals("Employee")).findFirst().orElse(null);
+        List<User> employees = users.findAll().stream().filter(user -> user.getRoles().contains(employeeRole)).toList();
+        List<Product> employeesProducts = employees.stream().
+    	return employees;
     }
 
     // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
